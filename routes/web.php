@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PengeluaranController;
+use App\Models\Pengeluaran;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,5 +22,6 @@ Route::get('/', function () {
 });
 Route::middleware(['auth'])->group(function () {
     Route::resource('/pengeluaran', PengeluaranController::class);
+    Route::get('/pengeluaran/hapus/{id}', [PengeluaranController::class, 'destroy']);
     Route::get('/dashboard', [PengeluaranController::class, 'index']);
 });

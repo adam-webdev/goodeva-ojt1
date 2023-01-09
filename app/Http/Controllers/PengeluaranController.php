@@ -69,8 +69,9 @@ class PengeluaranController extends Controller
      */
     public function edit($id)
     {
+        $kode_pengeluaran = Pengeluaran::kode_pengeluaran();
         $pengeluaran = Pengeluaran::findOrFail($id);
-        return view('pengeluaran.edit', compact('pengeluaran'));
+        return view('pengeluaran.edit', compact('pengeluaran', 'kode_pengeluaran'));
     }
 
     /**
@@ -82,15 +83,15 @@ class PengeluaranController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $edit_pengeluaran = new Pengeluaran();
+        $edit_pengeluaran = Pengeluaran::findOrFail($id);
         $edit_pengeluaran->kode_pengeluaran = $request->kode_pengeluaran;
         $edit_pengeluaran->nama_pengeluaran = $request->nama_pengeluaran;
         $edit_pengeluaran->deskripsi_pengeluaran = $request->deskripsi_pengeluaran;
         $edit_pengeluaran->jumlah_pengeluaran = $request->jumlah_pengeluaran;
         $edit_pengeluaran->tanggal = $request->tanggal;
         $edit_pengeluaran->save();
-        Alert::success('Berhasil ', 'Data Berhasil ditambahkan.');
-        return redirect()->back();
+        Alert::success('Berhasil ', 'Data Berhasil Diupdate.');
+        return redirect()->route('pengeluaran.index');
     }
 
     /**

@@ -97,7 +97,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $p->kode_pengeluaran }}</td>
                                 <td>{{ $p->nama_pengeluaran }}</td>
-                                <td>{{ $p->jumlah_pengeluaran }}</td>
+                                <td>@currency($p->jumlah_pengeluaran)</td>
                                 <td>{{ $p->tanggal }}</td>
                                 <td>{{ $p->deskripsi_pengeluaran }}</td>
                                 <td align="center" width="10%">
