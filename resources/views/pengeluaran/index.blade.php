@@ -4,10 +4,21 @@
     @include('sweetalert::alert')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Data Pengeluaran </h1>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            + Tambah
-        </button>
+        <div>
+            <a href="{{ route('import-data') }}" class="btn text-white" style="background: rgb(28, 191, 191)"><i
+                    class="fas fa-file-excel"></i>Import Excel</a>
+            <a href="{{ route('export-excel') }}" class="btn text-white" style="background: rgb(22, 135, 135)"><i
+                    class="fas fa-table"></i>Export
+                Excel</a>
+            <a href="{{ route('export-csv') }}" class="btn text-white" style="background: rgb(9, 110, 110)"><i
+                    class="fas fa-file-csv"></i></i>Export
+                CSV</a>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                + Tambah
+            </button>
+        </div>
+
     </div>
 
     {{-- @if (count($errors) > 0)
@@ -101,8 +112,8 @@
                                 <td>{{ $p->tanggal }}</td>
                                 <td>{{ $p->deskripsi_pengeluaran }}</td>
                                 <td align="center" width="10%">
-                                    <a href="{{ route('pengeluaran.edit', [$p->id]) }}" data-toggle="tooltip" title="Edit"
-                                        class="d-none  d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                    <a href="{{ route('pengeluaran.edit', [$p->id]) }}" data-toggle="tooltip"
+                                        title="Edit" class="d-none  d-sm-inline-block btn btn-sm btn-success shadow-sm">
                                         <i class="fas fa-edit fa-sm text-white-50"></i>
                                     </a>
                                     <a href="/pengeluaran/hapus/{{ $p->id }}" data-toggle="tooltip" title="Hapus"

@@ -24,4 +24,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/pengeluaran', PengeluaranController::class);
     Route::get('/pengeluaran/hapus/{id}', [PengeluaranController::class, 'destroy']);
     Route::get('/dashboard', [PengeluaranController::class, 'index']);
+    Route::get('/export-pengeluaran', [PengeluaranController::class, 'ExportExcel'])->name('export-excel');
+    Route::get('/export-pengeluaran-csv', [PengeluaranController::class, 'ExportCSV'])->name('export-csv');
+    Route::get('/import-data', [PengeluaranController::class, 'ViewImportData'])->name('import-data');
+    Route::post('/import-data', [PengeluaranController::class, 'ImportData'])->name('import');
+    Route::get('/dashboard', [PengeluaranController::class, 'dashboard'])->name('dashboard');
 });

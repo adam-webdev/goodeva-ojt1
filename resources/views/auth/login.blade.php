@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title> Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('/assets/vendor/fontawesome-free/css/all.min.css ') }}" rel="stylesheet" type="text/css">
@@ -22,7 +22,7 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-primary" style="background: rgb(28, 191, 191)">
 
     <div class="container">
 
@@ -65,7 +65,6 @@
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
-                                        <hr>
                                         {{-- <a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
                                         </a>
@@ -74,9 +73,9 @@
                                         </a> --}}
                                     </form>
                                     <hr>
-                                    <div class="text-center">
+                                    {{-- <div class="text-center">
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
+                                    </div> --}}
                                     <div class="text-center">
                                         <a class="small" href="{{ route('register') }}">Create an Account!</a>
                                     </div>
