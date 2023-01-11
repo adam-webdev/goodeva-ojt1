@@ -43,7 +43,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -227,7 +227,7 @@
             </div>
         </div>
     </div>
-
+    @yield('scripts')
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('/assets/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

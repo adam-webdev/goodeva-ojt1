@@ -28,5 +28,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/export-pengeluaran-csv', [PengeluaranController::class, 'ExportCSV'])->name('export-csv');
     Route::get('/import-data', [PengeluaranController::class, 'ViewImportData'])->name('import-data');
     Route::post('/import-data', [PengeluaranController::class, 'ImportData'])->name('import');
-    Route::get('/dashboard', [PengeluaranController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [PengeluaranController::class, 'chart'])->name('dashboard');
 });

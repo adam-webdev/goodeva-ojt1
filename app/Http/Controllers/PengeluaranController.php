@@ -17,12 +17,25 @@ class PengeluaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function dashboard()
+    public function chart()
     {
-        $pengeluaran = Pengeluaran::count();
-        return view('dashboard', compact('pengeluaran'));
+        $pengeluaranCount = Pengeluaran::count();
+
+        $pengeluaran = Pengeluaran::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(tanggal) as month_name"))
+            ->whereYear('tanggal', date('Y'))
+            ->groupBy(DB::raw("month_name"))
+            ->orderBy('id', 'ASC')
+            ->pluck('count', 'month_name');
+        $labels = $pengeluaran->keys();
+        $data = $pengeluaran->values();
+        return view('dashboard', compact('labels', 'data', 'pengeluaranCount'));
     }
+
+    // public function dashboard()
+    // {
+    //     $pengeluaran = Pengeluaran::count();
+    //     return view('dashboard', compact('pengeluaran'));
+    // }
 
     public function index()
     {
