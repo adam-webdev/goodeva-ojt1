@@ -7,6 +7,7 @@ use App\Imports\PengeluaranImport;
 use App\Models\Pengeluaran;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PengeluaranController extends Controller
@@ -26,7 +27,7 @@ class PengeluaranController extends Controller
     public function index()
     {
         $kode_pengeluaran = Pengeluaran::kode_pengeluaran();
-        $pengeluaran = Pengeluaran::all();
+        $pengeluaran = Pengeluaran::paginate(10);
         return view('pengeluaran.index', compact('pengeluaran', 'kode_pengeluaran'));
     }
 
@@ -48,6 +49,26 @@ class PengeluaranController extends Controller
      */
     public function store(Request $request)
     {
+        $pesan_error = [
+            "nama_pengeluaran.required" => "Nama Pengeluaran wajib diisi !",
+            "nama_pengeluaran.min" => "Nama Pengeluaran Minimal harus 3 huruf !",
+            "deskripsi_pengeluaran.required" => "Deskripsi Pengeluaran wajib diisi !",
+            "deksripsi_pengeluaran.min" => "Deskripsi Minimal harus 3 huruf !",
+            "jumlah_pengeluaran.required" => "Jumlah Pengeluaran wajib diisi !",
+            "jumlah_pengeluaran.integer" => "Jumlah Pengeluaran harus angka !",
+            "jumlah_pengeluaran.min" => "Jumlah Pengeluaran minimal harus 3 huruf !",
+            "tanggal.required" => "Tanggal  wajib diisi !",
+            "tanggal.date" => "Tanggal wajib berformat date !",
+        ];
+
+        $validated = $request->validate([
+            'kode_pengeluaran' => 'required|max:30|min:5',
+            'nama_pengeluaran' => 'required|min:3',
+            'deskripsi_pengeluaran' => 'required|min:3',
+            'jumlah_pengeluaran' => 'required|integer|min:3',
+            'tanggal' => 'required|date',
+        ], $pesan_error);
+
         $new_pengeluaran = new Pengeluaran();
         $new_pengeluaran->kode_pengeluaran = $request->kode_pengeluaran;
         $new_pengeluaran->nama_pengeluaran = $request->nama_pengeluaran;
@@ -92,6 +113,26 @@ class PengeluaranController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $pesan_error = [
+            "nama_pengeluaran.required" => "Nama Pengeluaran wajib diisi !",
+            "nama_pengeluaran.min" => "Nama Pengeluaran Minimal harus 3 huruf !",
+            "deskripsi_pengeluaran.required" => "Deskripsi Pengeluaran wajib diisi !",
+            "deksripsi_pengeluaran.min" => "Deskripsi Minimal harus 3 huruf !",
+            "jumlah_pengeluaran.required" => "Jumlah Pengeluaran wajib diisi !",
+            "jumlah_pengeluaran.integer" => "Jumlah Pengeluaran harus angka !",
+            "tanggal.required" => "Tanggal  wajib diisi !",
+            "tanggal.date" => "Tanggal wajib berformat date !",
+        ];
+
+        $validated = $request->validate([
+            'kode_pengeluaran' => 'required|max:30|min:5',
+            'nama_pengeluaran' => 'required|min:3',
+            'deskripsi_pengeluaran' => 'required|min:3',
+            'jumlah_pengeluaran' => 'required|integer',
+            'tanggal' => 'required|date',
+        ], $pesan_error);
+
+
         $edit_pengeluaran = Pengeluaran::findOrFail($id);
         $edit_pengeluaran->kode_pengeluaran = $request->kode_pengeluaran;
         $edit_pengeluaran->nama_pengeluaran = $request->nama_pengeluaran;
@@ -124,10 +165,13 @@ class PengeluaranController extends Controller
 
     public function ImportData(Request $request)
     {
-        // $file = $request->validate([
-        //     'file_import' => 'required|mimes:xlsx, csv, xls'
-        // ]);
-        Excel::import(new PengeluaranImport, $request->file('file_import')->store('file/pengeluaran'));
+        $validated = $request->validate([
+            'file_import' => 'required|mimes:xlsx,csv,xls'
+        ]);
+
+        Excel::import(new PengeluaranImport, $request->file('file_import'));
+
+
         Alert::success('Berhasil', 'Data berhasil dimasukan');
         return redirect()->route('pengeluaran.index');
     }

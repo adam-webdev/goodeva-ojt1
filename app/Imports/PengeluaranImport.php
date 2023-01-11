@@ -25,8 +25,7 @@ class PengeluaranImport implements ToModel, WithStartRow
     // }
     public function model(array $row)
     {
-        ddd($row);
-        return new Pengeluaran([
+        return  Pengeluaran::updateOrCreate([
             'kode_pengeluaran' => $row[0],
             'nama_pengeluaran' => $row[1],
             'jumlah_pengeluaran' => $row[2],

@@ -21,18 +21,18 @@
 
     </div>
 
-    {{-- @if (count($errors) > 0)
+    @if (count($errors) > 0)
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             <ul class="p-0 m-0" style="list-style: none;">
                 @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
+                    <li><small>{{ $error }}</small></li>
                 @endforeach
             </ul>
         </div>
-    @endif --}}
+    @endif
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -51,25 +51,30 @@
                             <div class="form-group row">
                                 <label for="kode">Kode Pengeluaran :</label>
                                 <input type="text" id="kode" name="kode_pengeluaran" value="{{ $kode_pengeluaran }}"
-                                    class="form-control" readonly>
+                                    class="form-control " readonly>
+
                             </div>
                             <div class="form-group row">
                                 <label for="kode">Nama Pengeluaran :</label>
-                                <input type="text" name="nama_pengeluaran" class="form-control" id="nama" required>
+                                <input type="text" name="nama_pengeluaran" class="form-control " id="nama" required>
+
                             </div>
 
                             <div class="form-group row">
                                 <label for="jumlah_pengeluaran">Jumlah Pengeluaran:</label>
-                                <input type="number" name="jumlah_pengeluaran" class="form-control" id="jumlah_pengeluaran"
-                                    required>
+                                <input type="number" name="jumlah_pengeluaran" class="form-control "
+                                    id="jumlah_pengeluaran" required>
+
                             </div>
                             <div class="form-group row">
                                 <label for="tanggal">Tanggal:</label>
                                 <input type="date" name="tanggal" class="form-control" id="tanggal" required>
+
                             </div>
                             <div class="form-group row">
                                 <label for="deskripsi">Deskripsi Pengeluaran :</label>
-                                <textarea type="text" rows="5" name="deskripsi_pengeluaran" class="form-control" id="deskripsi" required></textarea>
+                                <textarea type="text" rows="5" name="deskripsi_pengeluaran" class="form-control " id="deskripsi" required></textarea>
+
                             </div>
 
                         </div>
@@ -105,7 +110,8 @@
                     <tbody>
                         @foreach ($pengeluaran as $p)
                             <tr align="center">
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ ($pengeluaran->currentpage() - 1) * $pengeluaran->perpage() + $loop->index + 1 }}
+                                </td>
                                 <td>{{ $p->kode_pengeluaran }}</td>
                                 <td>{{ $p->nama_pengeluaran }}</td>
                                 <td>@currency($p->jumlah_pengeluaran)</td>
@@ -116,8 +122,8 @@
                                         title="Edit" class="d-none  d-sm-inline-block btn btn-sm btn-success shadow-sm">
                                         <i class="fas fa-edit fa-sm text-white-50"></i>
                                     </a>
-                                    <a href="/pengeluaran/hapus/{{ $p->id }}" data-toggle="tooltip" title="Hapus"
-                                        onclick="return confirm('Yakin Ingin menghapus data?')"
+                                    <a href="/pengeluaran/hapus/{{ $p->id }}" data-toggle="tooltip"
+                                        title="Hapus" onclick="return confirm('Yakin Ingin menghapus data?')"
                                         class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
                                         <i class="fas fa-trash-alt fa-sm text-white-50"></i>
                                     </a>
@@ -126,6 +132,10 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $pengeluaran->links() }}
+                {{-- Halaman : {{ $pengeluaran->currentPage() }} <br />
+                Jumlah Data : {{ $pengeluaran->total() }} <br />
+                Data Per Halaman : {{ $pengeluaran->perPage() }} <br /> --}}
             </div>
         </div>
     </div>
