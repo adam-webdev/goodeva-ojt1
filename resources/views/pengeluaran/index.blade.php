@@ -7,14 +7,15 @@
         <div>
             <a href="{{ route('import-data') }}" class="btn text-white" style="background: rgb(28, 191, 191)"><i
                     class="fas fa-file-excel"></i>Import Excel</a>
-            <a href="{{ route('export-excel') }}" class="btn text-white" style="background: rgb(22, 135, 135)"><i
+            <a href="{{ route('export-excel') }}" class="btn text-white" style="background: rgb(37, 170, 170)"><i
                     class="fas fa-table"></i>Export
                 Excel</a>
-            <a href="{{ route('export-csv') }}" class="btn text-white" style="background: rgb(9, 110, 110)"><i
+            <a href="{{ route('export-csv') }}" class="btn text-white" style="background: rgb(15, 136, 136)"><i
                     class="fas fa-file-csv"></i></i>Export
                 CSV</a>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-primary" style="background: rgb(15, 136, 136)" data-toggle="modal"
+                data-target="#exampleModal">
                 + Tambah
             </button>
         </div>

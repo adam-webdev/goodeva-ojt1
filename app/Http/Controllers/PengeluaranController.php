@@ -24,7 +24,7 @@ class PengeluaranController extends Controller
         $pengeluaran = Pengeluaran::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(tanggal) as month_name"))
             ->whereYear('tanggal', date('Y'))
             ->groupBy(DB::raw("month_name"))
-            ->orderBy('id', 'ASC')
+            ->orderBy('tanggal', 'ASC')
             ->pluck('count', 'month_name');
         $labels = $pengeluaran->keys();
         $data = $pengeluaran->values();
@@ -40,7 +40,7 @@ class PengeluaranController extends Controller
     public function index()
     {
         $kode_pengeluaran = Pengeluaran::kode_pengeluaran();
-        $pengeluaran = Pengeluaran::paginate(10);
+        $pengeluaran = Pengeluaran::orderBy('created_at', 'desc')->paginate(10);
         return view('pengeluaran.index', compact('pengeluaran', 'kode_pengeluaran'));
     }
 
