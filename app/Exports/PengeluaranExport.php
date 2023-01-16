@@ -25,11 +25,11 @@ class PengeluaranExport implements FromCollection, WithStyles, WithHeadings
 
     public function headings(): array
     {
-        return ['Kode Pengeluaran', 'Nama Pengeluaran', 'Jumlah Pengeluaran', 'Tanggal', 'Deskripsi Pengeluaran'];
+        return ['Kode Pengeluaran', 'Nama Pengeluaran', 'Jumlah Pengeluaran', 'Tanggal', 'Deskripsi Pengeluaran', 'aksi'];
     }
 
     public function collection()
     {
-        return Pengeluaran::select('kode_pengeluaran', 'nama_pengeluaran', 'jumlah_pengeluaran', 'tanggal', 'deskripsi_pengeluaran')->get();
+        return Pengeluaran::select('kode_pengeluaran', 'nama_pengeluaran', 'jumlah_pengeluaran', 'tanggal', 'deskripsi_pengeluaran', 'aksi')->get();
     }
 }

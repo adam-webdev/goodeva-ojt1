@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('pengeluarans', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_pengeluaran', 50)->unique();
-            $table->string('nama_pengeluaran', 100);
-            $table->text('deskripsi_pengeluaran', 255);
-            $table->string('jumlah_pengeluaran', 50);
-            $table->date('tanggal');
+            $table->string('kode_pengeluaran', 50)->unique()->nullable();
+            $table->string('nama_pengeluaran', 100)->nullable();
+            $table->text('deskripsi_pengeluaran', 255)->nullable();
+            $table->string('jumlah_pengeluaran', 50)->nullable();
+            $table->date('tanggal')->nullable();
+            $table->string('aksi')->default('update')->nullable();
             $table->timestamps();
         });
     }

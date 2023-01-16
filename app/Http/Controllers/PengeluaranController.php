@@ -39,9 +39,8 @@ class PengeluaranController extends Controller
 
     public function index()
     {
-        $kode_pengeluaran = Pengeluaran::kode_pengeluaran();
         $pengeluaran = Pengeluaran::orderBy('created_at', 'desc')->paginate(10);
-        return view('pengeluaran.index', compact('pengeluaran', 'kode_pengeluaran'));
+        return view('pengeluaran.index', compact('pengeluaran'));
     }
 
     /**
@@ -51,7 +50,8 @@ class PengeluaranController extends Controller
      */
     public function create()
     {
-        //
+        $kode_pengeluaran = Pengeluaran::kode_pengeluaran();
+        return view('pengeluaran.create', compact('kode_pengeluaran'));
     }
 
     /**

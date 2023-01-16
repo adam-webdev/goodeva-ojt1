@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pengeluaran extends Model
 {
     use HasFactory;
-    protected $fillable = ['kode_pengeluaran', 'nama_pengeluaran', 'jumlah_pengeluaran', 'tanggal', 'deskripsi_pengeluaran'];
+    protected $fillable = ['kode_pengeluaran', 'aksi', 'nama_pengeluaran', 'jumlah_pengeluaran', 'tanggal', 'deskripsi_pengeluaran'];
 
     public static function kode_pengeluaran()
     {
