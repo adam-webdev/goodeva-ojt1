@@ -90,7 +90,7 @@ class PengeluaranController extends Controller
         $new_pengeluaran->tanggal = $request->tanggal;
         $new_pengeluaran->save();
         Alert::success('Berhasil ', 'Data Berhasil ditambahkan.');
-        return redirect()->back();
+        return redirect()->route('pengeluaran.index');
     }
 
     /**

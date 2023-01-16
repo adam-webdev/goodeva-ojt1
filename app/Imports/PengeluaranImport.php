@@ -49,6 +49,10 @@ class PengeluaranImport implements ToModel, WithStartRow, WithHeadings, WithUpse
             '0' =>  function ($attr, $value, $onFailure) {
                 if ($value == '') {
                     $onFailure("Kode Pengeluaran  Tidak boleh kosong !");
+                } else if (is_int($value)) {
+                    $onFailure("Kode Pengeluaran harus string !");
+                } else if (strlen($value) < 5) {
+                    $onFailure("Kode Pengeluaran minimal 5 huruf dan diawali dengan KP contoh KP16012023001");
                 }
             },
             // '1' => function ($attr, $value, $onFailure) {
@@ -97,8 +101,14 @@ class PengeluaranImport implements ToModel, WithStartRow, WithHeadings, WithUpse
 
     public function model(array $row)
     {
+
         if ($row[5] == 'delete') {
-            Pengeluaran::where('kode_pengeluaran', $row[0])->delete();
+            Pengeluaran::where('kode_pengeluaran', $row[0])
+                ->where('nama_pengeluaran', $row[1])
+                ->where('jumlah_pengeluaran', $row[2])
+                ->where('tanggal', $row[3])
+                ->where('deskripsi_pengeluaran', $row[4])
+                ->delete();
         } else {
             return new Pengeluaran([
                 'kode_pengeluaran' => $row[0],
