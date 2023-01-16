@@ -51,12 +51,12 @@
                                 </td>
                                 <td>{{ $p->kode_pengeluaran }}</td>
                                 <td>{{ $p->nama_pengeluaran }}</td>
-                                <td>{{ $p->jumlah_pengeluaran }}</td>
+                                <td>@rupiah($p->jumlah_pengeluaran)</td>
                                 <td>{{ $p->tanggal }}</td>
                                 <td>{{ $p->deskripsi_pengeluaran }}</td>
                                 <td align="center" width="10%">
-                                    <a href="{{ route('pengeluaran.edit', [$p->id]) }}" data-toggle="tooltip"
-                                        title="Edit" class="d-none  d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                    <a href="{{ route('pengeluaran.edit', [$p->id]) }}" data-toggle="tooltip" title="Edit"
+                                        class="d-none  d-sm-inline-block btn btn-sm btn-success shadow-sm">
                                         <i class="fas fa-edit fa-sm text-white-50"></i>
                                     </a>
                                     <a href="/pengeluaran/hapus/{{ $p->id }}" data-toggle="tooltip" title="Hapus"

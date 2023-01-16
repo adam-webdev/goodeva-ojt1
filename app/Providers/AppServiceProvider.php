@@ -26,10 +26,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         Paginator::useBootstrapFive();
         // Paginator::useBootstrapFour();
         config(['app.locale' => 'id']);
         Carbon::setLocale('id');
         date_default_timezone_set('Asia/Jakarta');
-    }
+        Blade::directive('rupiah', function ($number) {
+            return "Rp. <?php echo number_format($number,0,',','.'); ?>";
+});
+}
 }

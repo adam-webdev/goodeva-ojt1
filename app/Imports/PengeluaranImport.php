@@ -27,14 +27,17 @@ class PengeluaranImport implements ToModel, WithStartRow, WithHeadings, WithUpse
      */
     use Importable;
 
-    // public function transformDate($value, $format = 'Y-m-d')
-    // {
-    //     try {
-    //         return \Carbon\Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value));
-    //     } catch (\ErrorException $e) {
-    //         return \Carbon\Carbon::createFromFormat($format, $value);
-    //     }
-    // }
+    public function transformDate($value, $format = 'Y-m-d')
+    {
+        $newDateFormat = date($format, strtotime($value));
+        return $newDateFormat;
+
+        // try {
+        //     return Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value));
+        // } catch (\ErrorException $e) {
+        //     return Carbon::createFromFormat($format, $value);
+        // }
+    }
 
     /**
      * Validasi row data import excel
@@ -43,15 +46,23 @@ class PengeluaranImport implements ToModel, WithStartRow, WithHeadings, WithUpse
     public function rules(): array
     {
         return [
-            '0' => 'string',
-            '1' => 'string',
+            '0' =>  function ($attr, $value, $onFailure) {
+                if ($value == '') {
+                    $onFailure("Kode Pengeluaran  Tidak boleh kosong !");
+                }
+            },
+            // '1' => function ($attr, $value, $onFailure) {
+            //     if ($value == '') {
+            //         $onFailure("Nama  pengeluaran Tidak boleh kosong !");
+            //     }
+            // },
             '2' => function ($attr, $value, $onFailure) {
                 if (!is_int($value)) {
                     $onFailure("Jumlah pengeluaran harus angka !");
                 }
             },
-            '3' => 'string',
-            '4' => 'string',
+            '3' => 'date',
+            // '4' => 'string',
             '5' => function ($attr, $value, $onFailure) {
                 if ($value != 'update' && $value != 'delete') {
                     $onFailure('Column aksi hanya boleh diisi dengan update atau delete !');
@@ -59,31 +70,31 @@ class PengeluaranImport implements ToModel, WithStartRow, WithHeadings, WithUpse
             }
         ];
     }
-    // public function customValidationMessages()
+    public function customValidationMessages()
+    {
+        return [
+            //         '*.kode_pengeluaran.string' => 'Kode pengeluaran harus berupa text / string !',
+            //         '*.kode_pengeluaran.unique' => 'Kode pengeluaran harus unique tidak boleh sama !',
+            //         '*.nama_pengeluaran.string' => 'Nama pengeluaran harus berupa text / string !',
+            //         '*.jumlah_pengeluaran.integer' => 'Jumlah pengeluaran harus berupa number / integer !',
+            '*.3.date' => 'Tanggal harus berformat date contoh 2023-01-1 atau  16-01-2023 !',
+            //         '*.deskripsi_pengeluaran.string' => 'Deskripsi pengeluaran harus berupa text / string !',
+            //         '*.aksi.in' => 'Aksi hanya boleh diisi oleh update / delete !',
+        ];
+    }
+    // public function customValidationAttributes()
     // {
-    //     return [
-    //         '*.kode_pengeluaran.string' => 'Kode pengeluaran harus berupa text / string !',
-    //         '*.kode_pengeluaran.unique' => 'Kode pengeluaran harus unique tidak boleh sama !',
-    //         '*.nama_pengeluaran.string' => 'Nama pengeluaran harus berupa text / string !',
-    //         '*.jumlah_pengeluaran.integer' => 'Jumlah pengeluaran harus berupa number / integer !',
-    //         '*.tanggal.string' => 'Tanggal harus berupa text / string !',
-    //         '*.deskripsi_pengeluaran.string' => 'Deskripsi pengeluaran harus berupa text / string !',
-    //         '*.aksi.in' => 'Aksi hanya boleh diisi oleh update / delete !',
-    //     ];
+    //     return
+    //         [
+    //             '3' => 'Tanggal',
+    //         ];
     // }
-
     public function headings(): array
     {
         return ['kode_pengeluaran', 'nama_pengeluaran', 'jumlah_pengeluaran', 'tanggal', 'deskripsi_pengeluaran', 'aksi'];
     }
 
-    // public function collection(Collection $collection)
-    // {
-    //     ddd($collection[9]);
-    //     foreach ($collection as $row) {
-    //         ddd($row[5]);
-    //     }
-    // }
+
     public function model(array $row)
     {
         if ($row[5] == 'delete') {
@@ -93,7 +104,7 @@ class PengeluaranImport implements ToModel, WithStartRow, WithHeadings, WithUpse
                 'kode_pengeluaran' => $row[0],
                 'nama_pengeluaran' => $row[1],
                 'jumlah_pengeluaran' => $row[2],
-                'tanggal' =>  $row[3],
+                'tanggal' =>  $this->transformDate($row[3]),
                 'deskripsi_pengeluaran' => $row[4],
                 'aksi' => $row[5]
             ]);

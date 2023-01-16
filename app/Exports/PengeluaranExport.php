@@ -25,7 +25,7 @@ class PengeluaranExport implements FromCollection, WithStyles, WithHeadings
 
     public function headings(): array
     {
-        return ['Kode Pengeluaran', 'Nama Pengeluaran', 'Jumlah Pengeluaran', 'Tanggal', 'Deskripsi Pengeluaran', 'aksi'];
+        return ['Kode Pengeluaran', 'Nama Pengeluaran', 'Jumlah Pengeluaran', 'Tanggal', 'Deskripsi Pengeluaran', 'Aksi'];
     }
 
     public function collection()
